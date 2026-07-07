@@ -1,0 +1,52 @@
+# Build and runtime outputs
+build/
+install/
+log/
+logs/
+.colcon/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.log
+
+# Local environment and secrets
+.env
+*.env
+!.env.example
+*.key
+*.pem
+*.crt
+*.token
+secrets/
+
+# Runtime memory and private data
+object_memory.json
+task_memory.json
+*.db
+*.sqlite
+
+# Large or licensed model files
+*.bin
+*.onnx
+*.engine
+*.pt
+*.pth
+*.tflite
+
+# Captured media
+*.bag
+*.bag.active
+*.mp4
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.wav
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+

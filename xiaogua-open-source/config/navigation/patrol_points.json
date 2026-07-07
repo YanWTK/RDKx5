@@ -1,0 +1,38 @@
+{
+  "points": [
+    {
+      "point_id": "p_001",
+      "name": "卧室",
+      "aliases": ["P001", "p_001", "一号点", "卧室"],
+      "pose": {
+        "x": 1.545,
+        "y": -0.589,
+        "yaw": 1.608
+      },
+      "capture_count": 5
+    },
+    {
+      "point_id": "p_002",
+      "name": "客厅",
+      "aliases": ["P002", "p_002", "二号点", "客厅"],
+      "pose": {
+        "x": 2.056,
+        "y": -1.066,
+        "yaw": 0.064
+      },
+      "capture_count": 5
+    },
+    {
+      "point_id": "p_003",
+      "name": "原点",
+      "aliases": ["P003", "p_003", "三号点", "原点"],
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0
+      },
+      "scan": false,
+      "capture_count": 5
+    }
+  ]
+}

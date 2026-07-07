@@ -1,0 +1,14 @@
+string target_name
+bool save_debug_images
+---
+bool success
+int32 selected_id
+string selected_type
+float32 confidence
+int32 x_min
+int32 y_min
+int32 x_max
+int32 y_max
+string annotated_image_path
+string final_image_path
+string message

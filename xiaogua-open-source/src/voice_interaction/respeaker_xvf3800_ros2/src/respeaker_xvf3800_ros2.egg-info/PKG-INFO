@@ -1,0 +1,14 @@
+Metadata-Version: 2.2
+Name: respeaker_xvf3800_ros2
+Version: 0.1.0
+Summary: ROS 2 driver and control wrapper for Seeed reSpeaker XVF3800
+Maintainer: root
+Maintainer-email: root@localhost
+License: Apache-2.0
+Requires-Dist: setuptools
+Requires-Dist: openai>=1.52.0
+Dynamic: license
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: requires-dist
+Dynamic: summary

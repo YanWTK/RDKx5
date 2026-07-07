@@ -1,0 +1,65 @@
+robopilot_app_bridge:
+  ros__parameters:
+    publish_mock_topics: true
+    publish_rate_hz: 10.0
+    map_width_cells: 240
+    map_height_cells: 240
+    map_resolution: 0.05
+    save_dir: /opt/xiaogua/legacy_ws/yahboomcar_ws/src/yahboomcar_nav/maps/app_map
+    save_basename: cartographer_map
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_footprint
+    base_link_frame: base_link
+    laser_frame: laser
+    imu_frame: imu_link
+    camera_frame: camera_rgb_frame
+    initial_voltage: 12.4
+    placeholder_map_message: mock mapping layer active
+
+robopilot_ros1_bridge:
+  ros__parameters:
+    publish_mock_topics: true
+    enable_ros1_bridge: true
+    ros1_bridge_url: ws://127.0.0.1:19090
+    ros1_bridge_reconnect_sec: 2.0
+    ros1_topic_timeout_sec: 2.0
+    publish_rate_hz: 10.0
+    map_width_cells: 240
+    map_height_cells: 240
+    map_resolution: 0.05
+    save_dir: /opt/xiaogua/legacy_ws/yahboomcar_ws/src/yahboomcar_nav/maps/app_map
+    save_basename: cartographer_map
+    ros1_carto_configuration_directory: /opt/xiaogua/runtime_ws/software/carto_ws/src/cartographer_ros/cartographer_ros/configuration_files
+    ros1_carto_configuration_basename: yahboomcar.lua
+    ros1_write_state_filename: /opt/xiaogua/runtime_ws/yahboomcar_ws/src/yahboomcar_nav/maps/app_map/cartographer_state.pbstream
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_footprint
+    base_link_frame: base_link
+    laser_frame: laser
+    imu_frame: imu_link
+    camera_frame: camera_rgb_frame
+    initial_voltage: 12.4
+    placeholder_map_message: ros1 bridge active
+
+robopilot_mock_camera:
+  ros__parameters:
+    topic: /camera/rgb/image_raw
+    width: 640
+    height: 480
+    fps: 20.0
+    frame_id: camera_rgb_frame
+    title: RoboPilot Mock Camera
+
+robopilot_mjpeg_server:
+  ros__parameters:
+    address: 0.0.0.0
+    port: 8081
+    stream_topic: /camera/rgb/image_raw
+    source_topic: /camera/color/image_raw
+    stream_fps: 15.0
+    jpeg_quality: 80
+    placeholder_width: 640
+    placeholder_height: 480
+    placeholder_text: RoboPilot video stream waiting for frames

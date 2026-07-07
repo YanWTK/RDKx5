@@ -1,0 +1,44 @@
+respeaker_xvf3800_node:
+  ros__parameters:
+    usb_vid: 10374
+    usb_pid: 30
+    device_index: 0
+    sample_rate: 16000
+    channel_count: 6
+    publish_rate: 5.0
+    doa_rate: 50.0
+    doa_smoothing: 0.4
+    track_only_when_vad: true
+    doa_when_vad_lost: hold
+    vad_hold_ms: 200
+    min_speech_energy: 0.0
+    voice_switch_margin: 1.5
+    voice_switch_min_hold_ms: 250
+    snap_on_voice_onset: true
+    enable_audio_publish: true
+    enable_led_control: true
+    enable_vad_publish: true
+    apply_audio_tuning: false
+    mic_gain: 90.0
+    ref_gain: 8.0
+    agc_max_gain: 64.0
+    agc_gain: 2.0
+    asr_output_gain: 1.0
+    audio_output_left: [6, 3]
+    audio_output_right: [7, 3]
+    audio_device: hw:C16K6Ch,0
+    audio_format: S16_LE
+    audio_chunk_frames: 640
+    audio_profile: raw_six
+    # Recover from the xHCI failure mode where capture stays open but most PCM
+    # samples become zero. First restart arecord, then re-authorize only the
+    # matching 2886:001e USB device after repeated failures.
+    audio_watchdog_enabled: true
+    audio_watchdog_zero_fraction: 0.80
+    audio_watchdog_bad_seconds: 2.0
+    audio_watchdog_usb_reset_after: 3
+    audio_watchdog_recovery_window: 30.0
+    audio_watchdog_enable_usb_reset: true
+    audio_watchdog_usb_reset_cooldown: 300.0
+    usb_sysfs_root: /sys/bus/usb/devices
+    usb_reset_disconnect_seconds: 1.0

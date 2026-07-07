@@ -1,0 +1,25 @@
+respeaker_xvf3800_wake_node:
+  ros__parameters:
+    wake_phrases:
+      - 小瓜
+    cooldown_seconds: 3.0
+    auto_trigger_asr: false
+    skip_asr: false
+    pause_after_detection: true
+    max_disabled_seconds: 600.0
+    # on-device KWS (sherpa-onnx + zipformer wenetspeech int8)
+    kws_model_dir: /opt/xiaogua/models/sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01
+    kws_keywords_file: xiaogua_keywords.txt
+    kws_threshold: 0.15
+    kws_num_threads: 1
+    kws_provider: cpu
+    audio_topic: /xvf3800/audio/conference
+    # legacy cloud-ASR knobs (no longer used; kept for compat)
+    scan_interval: 1.0
+    window_seconds: 2.0
+    buffer_seconds: 10.0
+    vad_stable_ms: 100
+    wake_vad_hold_ms: 2200
+    normalize_audio: true
+    normalize_peak: 26000
+    max_normalize_gain: 200.0

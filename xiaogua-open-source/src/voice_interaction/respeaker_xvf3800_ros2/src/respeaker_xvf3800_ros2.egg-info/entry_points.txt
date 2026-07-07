@@ -1,0 +1,5 @@
+[console_scripts]
+record_xvf3800_audio = respeaker_xvf3800_ros2.record_audio_topic:main
+respeaker_xvf3800_asr_node = respeaker_xvf3800_ros2.asr_node:main
+respeaker_xvf3800_node = respeaker_xvf3800_ros2.node:main
+respeaker_xvf3800_wake_node = respeaker_xvf3800_ros2.wake_word_node:main

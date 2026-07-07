@@ -1,0 +1,46 @@
+doa_visualizer_node:
+  ros__parameters:
+    # ====== 话题输入 ======
+    doa_topic: "/xvf3800/doa_deg"
+    vad_topic: "/xvf3800/vad"
+
+    # ====== 坐标系 ======
+    parent_frame: "base_link"            # 麦克风相对谁
+    mic_frame: "microphone_link"        # 麦克风本体坐标系
+    sound_frame: "sound_source"          # 声源方向坐标系（dynamic TF 子帧）
+
+    # ====== 麦克风相对 parent_frame 的位姿（米 / 弧度）======
+    # TODO 阶段一: 用尺子量麦克风在车上的实际位置
+    mic_x: 0.10
+    mic_y: 0.0
+    mic_z: 0.30
+    mic_yaw: 0.0
+
+    # ====== DOA 方向基准 ======
+    # 板子固件给的 DOA 0° 方向未必是"正前方"——这是实测校准参数
+    # 用法: 站到板子正前方说话，ros2 topic echo /xvf3800/doa_deg，记下数值 N，
+    #       然后把 doa_offset_deg 设为 -N 即可"扳正"到 0°
+    doa_offset_deg: 0.0
+    # DOA 板端 CCW=1 / CW=-1，发现方向反了改这里
+    doa_ccw: 1.0
+
+    # ====== 射线长度（米）======
+    arrow_length: 1.5
+    # RVIZ Marker 在没有新数据时存在多久
+    marker_lifetime_sec: 1.5
+
+    # ====== 颜色 RGBA（0~1）======
+    marker_color_r: 0.1
+    marker_color_g: 0.9
+    marker_color_b: 0.3
+    marker_color_a: 0.9
+    # 射线粗细
+    marker_shaft_diameter: 0.025
+    marker_head_diameter: 0.06
+    marker_head_length: 0.08
+
+    # ====== 行为开关 ======
+    publish_tf: true
+    publish_marker: true
+    # VAD=false 时是否继续发（VAD 丢失后 hold 期间：true=继续发，false=让 marker 自然消逝）
+    keep_publishing_on_vad_loss: false

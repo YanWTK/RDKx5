@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robopilot_app_bridge</name>
+  <version>0.1.0</version>
+  <description>Robopilot App-facing communication layer for ROS 2 hosts.</description>
+  <maintainer email="root@localhost">root</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>rosbridge_server</depend>
+  <depend>rosapi</depend>
+
+  <test_depend>pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
