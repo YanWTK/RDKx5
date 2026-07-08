@@ -1,4 +1,4 @@
-# Xiaogua Home Service Robot
+# Xiaogua: An RDK X5-Based Edge-Cloud Collaborative Multimodal Embodied Intelligent Home Service Robot
 
 Xiaogua is an edge-cloud collaborative multimodal embodied home service robot based on the RDK X5 edge computing platform. It uses Horizon Robotics TROS together with ROS middleware for modular perception, communication, and task execution. The system integrates mobile navigation, voice interaction, object memory, vision-language target selection, visual tracking, visual servo alignment, and robotic arm manipulation to complete home service tasks such as object fetching, relative placement, patrol, remote monitoring, and app-assisted control.
 
