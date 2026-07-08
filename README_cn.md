@@ -26,7 +26,7 @@
 ## 项目亮点
 
 - App 一键启动基础能力：底盘控制、建图、导航、巡逻、相机、目标检测、视频推流和远程控制桥接。
-- AI 驱动的语音取物：以自然语言作为入口，由 LLM 任务总控结合物品记忆、VLM 视觉确认、目标追踪、视觉伺服、机械臂抓取和交付反馈动态编排执行。
+- AI 驱动的语音任务服务：以自然语言作为入口，由 LLM 任务总控结合物品记忆、VLM 视觉确认、目标追踪、视觉伺服、机械臂抓取和交付反馈动态编排执行。
 - YOLO-VLM-Tracking 多阶段闭环融合：目标检测、VLM 选择、selected-only 追踪、目标丢失重选、HSV 外观匹配、类别约束、速度预测和丢失缓冲。
 - 物品记忆支持近似语义匹配，例如用户找“卡皮巴拉玩偶”，记忆库只有“毛绒玩具”时，可以选择相关但不确定的候选并进行说明。
 - LLM 任务编排支持复杂复合指令，可完成取物、相对放置、人物交付等类似家庭服务任务，并将自然语言拆解为导航、视觉确认、追踪、抓取、放置和交付等可执行步骤。
@@ -37,7 +37,7 @@
 | 能力 | 说明 | 主要模块 |
 | --- | --- | --- |
 | App 基础栈 | 启动底盘、相机、YOLO、导航、建图、巡逻、视频流和 App 桥接 | `app_bridge`、`navigation`、`vision_to_3d` |
-| 语音取物 | 理解语音指令，查询物品记忆，抓取物品并返回说话人 | `voice_interaction`、`task_understanding`、`object_memory`、`task_orchestrator` |
+| 语音任务服务 | 理解语音指令，按任务需要调用记忆、视觉、导航、抓取和交付能力 | `voice_interaction`、`task_understanding`、`object_memory`、`task_orchestrator` |
 | 相对放置 | 将抓取物放到参照物左、右、前、后方 | `vlm_target_selector`、`object_tracker`、`arm_control` |
 | 人物交付 | 搜索指定人物，VLM 判断是否符合描述，记录 3D 坐标并导航到安全距离 | `vision_to_3d`、`task_orchestrator`、`navigation` |
 | 巡逻记忆 | 在巡逻点扫描可见物体，建立语义物品记忆 | `object_memory`、`vlm_target_selector`、`navigation` |
@@ -82,7 +82,7 @@ xiaogua-home-service-robot/
 │       └── voice_persona.json        # TTS 播报风格配置示例
 ├── scripts/                          # 常用启动和环境脚本
 │   ├── start_app.sh                  # 启动 App 基础栈
-│   ├── start_voice_fetch.sh          # 启动语音取物链路
+│   ├── start_voice_fetch.sh          # 启动语音任务服务
 │   └── setup_env.sh                  # 初始化环境变量和工作空间
 ├── src/                              # 核心功能源码
 │   ├── app_bridge/                   # App 通信、状态同步、视频推流和服务桥接
@@ -117,7 +117,7 @@ xiaogua-home-service-robot/
 | 文件 | 功能 |
 | --- | --- |
 | `scripts/start_app.sh` | 启动 App 基础栈，包括底盘、导航、相机、检测、推流和 App 桥接服务。 |
-| `scripts/start_voice_fetch.sh` | 在基础栈之上启动语音取物补充链路。 |
+| `scripts/start_voice_fetch.sh` | 在基础栈之上启动语音任务服务。 |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/bridge_node.py` | App 主桥接节点，负责 App 指令、机器人状态和服务转发。 |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/mjpeg_server.py` | MJPEG 视频推流服务，用于 App 和浏览器预览。 |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/mapping_service_node.py` | 将建图、定位、导航和巡逻控制封装成 App 侧服务。 |
@@ -144,7 +144,7 @@ xiaogua-home-service-robot/
 
 ## 主要工作流程
 
-项目提供两类主要启动入口。实际部署时通常先启动 App 基础栈，再按任务需要启动语音取物补充链路。
+项目提供两类主要启动入口。实际部署时通常先启动 App 基础栈，再按任务需要启动语音任务服务。
 
 ### App 基础能力
 
@@ -161,9 +161,9 @@ source scripts/setup_env.sh
 bash scripts/start_app.sh
 ```
 
-### 语音取物
+### 语音任务服务
 
-语音取物不是固定步骤流水线，而是以语音作为入口，由 AI 任务总控根据用户意图、物品记忆、视觉反馈和机器人当前状态动态编排能力模块。一次任务中可能按需调用唤醒/ASR、LLM 理解、记忆查询、导航、VLM 确认、目标追踪、视觉伺服、抓取、返回或交付等能力，并在目标不确定、丢失或场景变化时重新判断和调整。
+语音任务服务不是固定步骤流水线，而是以语音作为入口，由 AI 任务总控根据用户意图、物品记忆、视觉反馈和机器人当前状态动态编排能力模块。一次任务中可能按需调用唤醒/ASR、LLM 理解、记忆查询、导航、VLM 确认、目标追踪、视觉伺服、抓取、返回或交付等能力，并在目标不确定、丢失或场景变化时重新判断和调整。
 
 ```text
 语音/App 指令 -> AI 任务总控

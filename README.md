@@ -27,7 +27,7 @@ The code is organized for readability and reuse. Before running it on a physical
 ## Highlights
 
 - One-tap app startup for base capabilities: chassis control, mapping, navigation, patrol, camera, object detection, video streaming, and remote bridge access.
-- AI-driven voice fetch: natural-language requests are handled by an LLM task orchestrator that dynamically composes object memory, VLM visual confirmation, tracking, visual servoing, arm grasping, and delivery feedback.
+- AI-driven voice task service: natural-language requests are handled by an LLM task orchestrator that dynamically composes object memory, VLM visual confirmation, tracking, visual servoing, arm grasping, and delivery feedback.
 - YOLO-VLM-Tracking pipeline with selected-target tracking, target loss recovery, HSV appearance matching, class constraints, velocity prediction, and buffered re-selection.
 - Object memory query with approximate semantic matching, allowing queries such as "capybara plush toy" to match a remembered "plush toy" when no exact match exists.
 - LLM task orchestration for complex multi-step home-service commands, including object fetching, relative placement, person-oriented delivery, and similar tasks by decomposing natural language into executable navigation, visual confirmation, tracking, grasping, placement, and delivery steps.
@@ -38,7 +38,7 @@ The code is organized for readability and reuse. Before running it on a physical
 | Capability | Description | Main Modules |
 | --- | --- | --- |
 | App base stack | Start chassis, camera, YOLO, navigation, mapping, patrol, video stream, and app bridge | `app_bridge`, `navigation`, `vision_to_3d` |
-| Voice object fetching | Understand a spoken command, locate an object from memory, grasp it, and return to the speaker | `voice_interaction`, `task_understanding`, `object_memory`, `task_orchestrator` |
+| Voice task service | Understand spoken commands and invoke memory, vision, navigation, grasping, and delivery capabilities as needed | `voice_interaction`, `task_understanding`, `object_memory`, `task_orchestrator` |
 | Relative placement | Place a held or fetched object to the left, right, front, or back of a reference object | `vlm_target_selector`, `object_tracker`, `arm_control` |
 | Person delivery | Search for a described person, verify with VLM, record 3D position, and navigate to a safe distance | `vision_to_3d`, `task_orchestrator`, `navigation` |
 | Patrol memory | Scan patrol points and build a semantic memory of visible objects | `object_memory`, `vlm_target_selector`, `navigation` |
@@ -83,7 +83,7 @@ xiaogua-home-service-robot/
 │       └── voice_persona.json        # Example TTS persona configuration
 ├── scripts/                          # Common startup and environment scripts
 │   ├── start_app.sh                  # Start the app base stack
-│   ├── start_voice_fetch.sh          # Start the voice-fetch workflow
+│   ├── start_voice_fetch.sh          # Start the voice task service
 │   └── setup_env.sh                  # Initialize environment variables and workspace
 ├── src/                              # Core source code
 │   ├── app_bridge/                   # App communication, state sync, video streaming, and service bridge
@@ -118,7 +118,7 @@ xiaogua-home-service-robot/
 | File | Function |
 | --- | --- |
 | `scripts/start_app.sh` | Starts the base app stack, including chassis, navigation, camera, detection, streaming, and app bridge services. |
-| `scripts/start_voice_fetch.sh` | Starts the voice-fetch companion stack on top of the base app stack. |
+| `scripts/start_voice_fetch.sh` | Starts the voice task service on top of the base app stack. |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/bridge_node.py` | Main app bridge node for app commands, robot status, and service forwarding. |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/mjpeg_server.py` | MJPEG video stream server used by the app and browser preview. |
 | `src/app_bridge/robopilot_app_bridge/src/robopilot_app_bridge/mapping_service_node.py` | Wraps mapping, localization, navigation, and patrol control as app-facing services. |
@@ -145,7 +145,7 @@ xiaogua-home-service-robot/
 
 ## Main Workflows
 
-The project provides two main startup paths. In deployment, the app base stack is usually started first, and the voice-fetch companion stack is started only when required.
+The project provides two main startup paths. In deployment, the app base stack is usually started first, and the voice task service is started only when required.
 
 ### App Startup
 
@@ -162,9 +162,9 @@ source scripts/setup_env.sh
 bash scripts/start_app.sh
 ```
 
-### Voice Fetch
+### Voice Task Service
 
-Voice fetch is not implemented as a fixed step-by-step pipeline. Speech is only one entry point; the AI task orchestrator dynamically composes capabilities according to the user's intent, object memory, visual feedback, and the robot's current state. A task may call wake/ASR, LLM understanding, memory lookup, navigation, VLM confirmation, target tracking, visual servoing, grasping, return, or delivery as needed, and it can re-evaluate when the target is uncertain, lost, or the scene changes.
+The voice task service is not implemented as a fixed step-by-step pipeline. Speech is only one entry point; the AI task orchestrator dynamically composes capabilities according to the user's intent, object memory, visual feedback, and the robot's current state. A task may call wake/ASR, LLM understanding, memory lookup, navigation, VLM confirmation, target tracking, visual servoing, grasping, return, or delivery as needed, and it can re-evaluate when the target is uncertain, lost, or the scene changes.
 
 ```text
 voice/app command -> AI task orchestrator
