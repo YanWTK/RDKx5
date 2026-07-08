@@ -37,11 +37,11 @@ The code is organized for readability and reuse. Before running it on a physical
 
 | Capability | Description | Main Modules |
 | --- | --- | --- |
-| App base stack | Start chassis, camera, YOLO, navigation, mapping, patrol, video stream, and app bridge | `app_bridge`, `navigation`, `vision_to_3d` |
-| Voice task service | Understand spoken commands and invoke memory, vision, navigation, grasping, and delivery capabilities as needed | `voice_interaction`, `task_understanding`, `object_memory`, `task_orchestrator` |
-| Relative placement | Place a held or fetched object to the left, right, front, or back of a reference object | `vlm_target_selector`, `object_tracker`, `arm_control` |
-| Person delivery | Search for a described person, verify with VLM, record 3D position, and navigate to a safe distance | `vision_to_3d`, `task_orchestrator`, `navigation` |
-| Patrol memory | Scan patrol points and build a semantic memory of visible objects | `object_memory`, `vlm_target_selector`, `navigation` |
+| App core controls | Provide mapping, navigation, patrol, video preview, chassis control, and remote operation entry points | `app_bridge`, `navigation`, `vision_to_3d` |
+| Voice task service | Accept natural-language commands and let the task orchestrator decide the next action from memory, vision, and robot state | `voice_interaction`, `task_understanding`, `object_memory`, `task_orchestrator` |
+| Object manipulation | Find objects, verify targets, track and align, grasp, and place objects in desktop or home-service scenes | `vlm_target_selector`, `object_tracker`, `arm_control` |
+| Person-aware tasks | Locate users from descriptions or sound direction, then support approach, return-to-speaker, and delivery tasks | `vision_to_3d`, `task_orchestrator`, `navigation` |
+| Environment memory | Record visible objects during patrol or observation to support later queries and task execution | `object_memory`, `vlm_target_selector`, `navigation` |
 
 ## System Architecture
 

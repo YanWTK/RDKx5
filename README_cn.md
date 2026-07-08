@@ -36,11 +36,11 @@
 
 | 能力 | 说明 | 主要模块 |
 | --- | --- | --- |
-| App 基础栈 | 启动底盘、相机、YOLO、导航、建图、巡逻、视频流和 App 桥接 | `app_bridge`、`navigation`、`vision_to_3d` |
-| 语音任务服务 | 理解语音指令，按任务需要调用记忆、视觉、导航、抓取和交付能力 | `voice_interaction`、`task_understanding`、`object_memory`、`task_orchestrator` |
-| 相对放置 | 将抓取物放到参照物左、右、前、后方 | `vlm_target_selector`、`object_tracker`、`arm_control` |
-| 人物交付 | 搜索指定人物，VLM 判断是否符合描述，记录 3D 坐标并导航到安全距离 | `vision_to_3d`、`task_orchestrator`、`navigation` |
-| 巡逻记忆 | 在巡逻点扫描可见物体，建立语义物品记忆 | `object_memory`、`vlm_target_selector`、`navigation` |
+| App 基础能力 | 提供建图、导航、巡逻、视频查看、底盘控制和远程操作入口 | `app_bridge`、`navigation`、`vision_to_3d` |
+| 语音任务服务 | 接收自然语言指令，由任务总控结合记忆、视觉和机器人状态决定下一步动作 | `voice_interaction`、`task_understanding`、`object_memory`、`task_orchestrator` |
+| 物品操作 | 完成找物、确认目标、跟踪对准、抓取和相对放置等桌面/家庭场景操作 | `vlm_target_selector`、`object_tracker`、`arm_control` |
+| 人物相关任务 | 根据人物描述或声源方向寻找用户，并支持靠近、返回说话人和递送任务 | `vision_to_3d`、`task_orchestrator`、`navigation` |
+| 环境记忆 | 在巡逻或观察过程中记录可见物体，为后续查询和任务执行提供线索 | `object_memory`、`vlm_target_selector`、`navigation` |
 
 ## 系统架构
 
