@@ -22,8 +22,7 @@ The code is organized for readability and reuse. Before running it on a physical
 - [Configuration](#configuration)
 - [Models](#models)
 - [Hardware Reference](#hardware-reference)
-- [Open-Source Notes](#open-source-notes)
-- [License](#license)
+
 
 ## Highlights
 
