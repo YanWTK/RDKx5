@@ -27,7 +27,7 @@ The code is organized for readability and reuse. Before running it on a physical
 ## Highlights
 
 - One-tap app startup for base capabilities: chassis control, mapping, navigation, patrol, camera, object detection, video streaming, and remote bridge access.
-- Voice-driven object fetching: wake word, ASR, DOA, TTS, LLM task understanding, object memory lookup, VLM confirmation, target tracking, auto alignment, grasping, returning, and delivery.
+- AI-driven voice fetch: natural-language requests are handled by an LLM task orchestrator that dynamically composes object memory, VLM visual confirmation, tracking, visual servoing, arm grasping, and delivery feedback.
 - YOLO-VLM-Tracking pipeline with selected-target tracking, target loss recovery, HSV appearance matching, class constraints, velocity prediction, and buffered re-selection.
 - Object memory query with approximate semantic matching, allowing queries such as "capybara plush toy" to match a remembered "plush toy" when no exact match exists.
 - LLM task orchestration for complex multi-step home-service commands, including object fetching, relative placement, person-oriented delivery, and similar tasks by decomposing natural language into executable navigation, visual confirmation, tracking, grasping, placement, and delivery steps.
@@ -164,11 +164,12 @@ bash scripts/start_app.sh
 
 ### Voice Fetch
 
-The voice-fetch companion stack adds the complete object fetching workflow:
+Voice fetch is not implemented as a fixed step-by-step pipeline. Speech is only one entry point; the AI task orchestrator dynamically composes capabilities according to the user's intent, object memory, visual feedback, and the robot's current state. A task may call wake/ASR, LLM understanding, memory lookup, navigation, VLM confirmation, target tracking, visual servoing, grasping, return, or delivery as needed, and it can re-evaluate when the target is uncertain, lost, or the scene changes.
 
 ```text
-wake/ASR -> task understanding -> memory query -> navigation -> VLM confirmation
--> tracking -> visual alignment -> grasp -> return/delivery
+voice/app command -> AI task orchestrator
+  -> on-demand use: memory / navigation / VLM / tracking / alignment / grasp / delivery
+  -> continuous replanning and feedback from execution results
 ```
 
 Example command:
@@ -228,7 +229,7 @@ The perception pipeline combines object detection, VLM target reasoning, and sel
 
 ### LLM Task Plan Orchestration
 
-The task intelligence module does not only classify user intent. It converts natural language commands into a structured task JSON that contains both high-level intent fields and a step-by-step executable `plan`.
+The task intelligence module does not only classify user intent. It converts natural language commands into a structured task JSON that contains both high-level intent fields and a dynamically generated semantic execution `plan` for the current task.
 
 Typical output fields include:
 
